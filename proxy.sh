@@ -70,12 +70,12 @@ upload_proxy() {
     
 }
 install_jq() {
-  wget -O jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+  wget -O jq https://github.com/stedolan/jq/releases/download/jq-1.6/
   chmod +x ./jq
   cp jq /usr/bin
 }
 
-upload_2file() {
+() {
   local PASS=$(random)
   zip --password $PASS proxy.zip proxy.txt
   JSON=$(curl -F "file=@proxy.zip" https://file.io)
@@ -97,7 +97,7 @@ gen_iptables() {
 EOF
 }
 
-gen_ifconfig() {
+() {
     cat <<EOF
 $(awk -F "/" '{print "ifconfig eth0 inet6 add " $5 "/64"}' ${WORKDATA})
 EOF

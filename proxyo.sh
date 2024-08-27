@@ -91,7 +91,7 @@ gen_data() {
     done
 }
 
-gen_iptables() {
+() {
     cat <<EOF
     $(awk -F "/" '{print "iptables -I INPUT -p tcp --dport " $4 "  -m state --state NEW -j ACCEPT"}' ${WORKDATA})
 EOF
@@ -99,7 +99,7 @@ EOF
 
 gen_ifconfig() {
     cat <<EOF
-$(awk -F "/" '{print "/sbin/ip -6 addr add dev enp1s0 " $5 }' ${WORKDATA})
+$(awk -F "/" '{print "sbin/.ip -6 addr add dev enp1s0 " $5 }' ${WORKDATA})
 EOF
 }
 
@@ -130,7 +130,7 @@ gen_iptables >$WORKDIR/boot_iptables.sh
 gen_ifconfig >$WORKDIR/boot_ifconfig.sh
 chmod +x ${WORKDIR}/boot_*.sh /etc/rc0.d
 
-gen_3proxy >/etc/3proxy/3proxy.cfg
+ >/etc/3proxy/3proxy.cfg
 ulimit -S -n 4096
 /etc/init.d/3proxy start
 
